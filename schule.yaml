@@ -1,0 +1,41 @@
+# Test page "Schule" — built by .github/workflows/deploy.yml
+title: LiaScript Templates
+comment: Design „Schule“ – Kurse zum Ausprobieren, Herunterladen und Einbinden ins LMS.
+logo: https://live.staticflickr.com/7327/11125348744_2a75b75427_b.jpg
+icon: https://liascript.github.io/favicon.ico
+
+navbar:
+  brand: "Design: Schule"
+  background: "#c2410c"
+  theme: dark
+  links:
+    - label: Akademisch
+      url: index.html
+    - label: Campus
+      url: campus.html
+    - label: Night
+      url: night.html
+    - label: Schule
+      url: schule.html
+
+link:
+  - theme.css
+  - themes/school.css
+
+footer: >
+  Testseite für den liascript-exporter-Skill · Erstellt mit <a href="https://liascript.github.io">LiaScript</a>
+
+collection:
+  - url: https://raw.githubusercontent.com/LiaTemplates/ABCjs/main/README.md
+    tags: [Musik]
+  - url: https://raw.githubusercontent.com/LiaTemplates/Algebrite/master/README.md
+    tags: [Mathematik]
+
+  - title: Zusammenarbeit & Grafik
+    comment: Templates für gemeinsames Arbeiten und Geometrie
+    grid: true
+    collection:
+      - url: https://raw.githubusercontent.com/LiaTemplates/JSXGraph/main/README.md
+        tags: [Mathematik, Grafik]
+      - url: https://raw.githubusercontent.com/LiaTemplates/CollaborativeDrawing/main/README.md
+        tags: [Klassenraum]
