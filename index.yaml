@@ -27,6 +27,8 @@ footer: >
 collection:
   - url: https://raw.githubusercontent.com/LiaTemplates/ABCjs/main/README.md
     tags: [Musik]
+    arguments:
+      - project-generate-epub: false   # ePub of this course fails in 3.5.14
   - url: https://raw.githubusercontent.com/LiaTemplates/Algebrite/master/README.md
     tags: [Mathematik]
 
