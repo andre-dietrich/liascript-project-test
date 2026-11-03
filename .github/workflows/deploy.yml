@@ -52,6 +52,7 @@ jobs:
           # cached files are never rebuilt; a new key every week refreshes them
           key: lia-assets-${{ hashFiles('*.yaml') }}-${{ steps.week.outputs.week }}
 
+      # no --project-generate-epub: in 3.5.14 it fails for courses with a logo URL
       - name: Generate pages with downloads
         env:
           PUPPETEER_ARGS: "--no-sandbox --disable-setuid-sandbox"
@@ -62,7 +63,7 @@ jobs:
               --project-search \
               --project-generate-scorm12 --project-generate-scorm2004 \
               --project-generate-ims --project-generate-xapi --project-generate-h5p \
-              --project-generate-pdf --project-generate-epub --project-generate-docx \
+              --project-generate-pdf --project-generate-docx \
               --pdf-timeout 60000 \
               --project-generate-cache
           done
