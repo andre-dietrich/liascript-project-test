@@ -29,6 +29,9 @@ collection:
     tags: [Musik]
   - url: https://raw.githubusercontent.com/LiaTemplates/Algebrite/master/README.md
     tags: [Mathematik]
+  # a course on GitLab: the -/raw/ link, packages are cloned from gitlab.com
+  - url: https://gitlab.com/OvGU-ESS/eLab_v2/lia_script/-/raw/master/README.md
+    tags: [GitLab]
 
   - title: Zusammenarbeit & Grafik
     comment: Templates für gemeinsames Arbeiten und Geometrie
