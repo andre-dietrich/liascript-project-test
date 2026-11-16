@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="de">
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>LiaScript Templates</title>
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org/",
+                    "@type": "ItemList",
+                    "itemListElement": [{
+                    "@id": "https://raw.githubusercontent.com/LiaTemplates/ABCjs/main/README.md",
+                        "@type": "Course",
+                        "author": {
+                        "@type": "Person",
+                            "email": "LiaScript@web.de",
+                            "name": "André Dietrich"
+                    },
+                        "description": "This document provides a collection of LiaScript macros that can be to write beautiful music notes with the ABC notation and also to play this music aloud.",
+                        "image": {
+                        "@type": "ImageObject",
+                            "url": "https://raw.githubusercontent.com/LiaTemplates/ABCjs/main/logo.png"
+                    },
+                        "inLanguage": "en",
+                        "license": "https://raw.githubusercontent.com/LiaTemplates/ABCjs/main/LICENSE",
+                        "name": "ABCjs - Template",
+                        "url": "https://LiaScript.github.io/course/?https://raw.githubusercontent.com/LiaTemplates/ABCjs/main/README.md",
+                        "version": "0.0.2"
+                }, {
+                    "@id": "https://raw.githubusercontent.com/LiaTemplates/Algebrite/master/README.md",
+                        "@type": "Course",
+                        "author": {
+                        "@type": "Person",
+                            "email": "LiaScript@web.de",
+                            "name": "André Dietrich"
+                    },
+                        "description": "Template for the Algebrite JavaScript Computer-Algebra-System (CAS).",
+                        "image": {
+                        "@type": "ImageObject",
+                            "url": "https://live.staticflickr.com/7327/11125348744_2a75b75427_b.jpg"
+                    },
+                        "inLanguage": "en",
+                        "name": "Algebrite - Template",
+                        "url": "https://LiaScript.github.io/course/?https://raw.githubusercontent.com/LiaTemplates/Algebrite/master/README.md",
+                        "version": "0.7.1"
+                }, {
+                    "@type": "ItemList",
+                        "itemListElement": [{
+                        "@id": "https://raw.githubusercontent.com/LiaTemplates/JSXGraph/main/README.md",
+                            "@type": "Course",
+                            "author": {
+                            "@type": "Person",
+                                "email": "LiaScript@web.de",
+                                "name": "André Dietrich"
+                        },
+                            "description": "This template allows you to create JSXGraph graphs in LiaScript.",
+                            "image": {
+                            "@type": "ImageObject",
+                                "url": "https://raw.githubusercontent.com/LiaTemplates/JSXGraph/main/logo.gif"
+                        },
+                            "inLanguage": "en",
+                            "license": "https://raw.githubusercontent.com/LiaTemplates/JSXGraph/main/LICENSE",
+                            "name": "JSXGraph",
+                            "url": "https://LiaScript.github.io/course/?https://raw.githubusercontent.com/LiaTemplates/JSXGraph/main/README.md",
+                            "version": "0.0.3"
+                    }, {
+                        "@id": "https://raw.githubusercontent.com/LiaTemplates/CollaborativeDrawing/main/README.md",
+                            "@type": "Course",
+                            "author": {
+                            "@type": "Person",
+                                "email": "LiaScript@web.de",
+                                "name": "André Dietrich"
+                        },
+                            "description": "Collaborative drawing on a shared canvas. Everyone draws on an own layer, which is kept locally and joins the classroom when you connect. The classroom mode decides who sees which layer.",
+                            "inLanguage": "en",
+                            "license": "https://raw.githubusercontent.com/LiaTemplates/CollaborativeDrawing/main/LICENSE",
+                            "name": "Collaborative Drawing",
+                            "url": "https://LiaScript.github.io/course/?https://raw.githubusercontent.com/LiaTemplates/CollaborativeDrawing/main/README.md",
+                            "version": "0.1.0"
+                    }],
+                        "name": "Zusammenarbeit & Grafik",
+                        "description": "Templates für gemeinsames Arbeiten und Geometrie"
+                }],
+                    "name": "LiaScript Templates",
+                    "description": "Design „Campus“ – Kurse zum Ausprobieren, Herunterladen und Einbinden ins LMS."
+            }
+        </script>
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="LiaScript Templates">
+        <meta name="twitter:title" content="LiaScript Templates">
+        <meta name="description" content="Design „Campus“ – Kurse zum Ausprobieren, Herunterladen und Einbinden ins LMS.">
+        <meta property="og:description" content="Design „Campus“ – Kurse zum Ausprobieren, Herunterladen und Einbinden ins LMS.">
+        <meta name="twitter:description" content="Design „Campus“ – Kurse zum Ausprobieren, Herunterladen und Einbinden ins LMS.">
+        <meta property="og:image" content="https://live.staticflickr.com/7327/11125348744_2a75b75427_b.jpg">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="https://live.staticflickr.com/7327/11125348744_2a75b75427_b.jpg">
+        <link rel="icon" type="image/x-icon" href="https://liascript.github.io/favicon.ico">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link rel="stylesheet" href="theme.css">
+        <link rel="stylesheet" href="themes/campus.css">
+        <script>
+            // Globale Variable zum Speichern der ausgewählten Kategorien
+            window.selectedCategories = []
+
+            // Fügt einen Chip hinzu, wenn eine Kategorie gewählt wurde
+            function addCategoryChip(category) {
+                if (!category) return // falls "Alle Themen" gewählt wurde, nichts tun
+                if (window.selectedCategories.indexOf(category) === -1) {
+                    window.selectedCategories.push(category)
+                    // Option im Select-Menü deaktivieren
+                    document.querySelector('#categorySelect option[value="' + category + '"]').disabled = true
+                    updateChipsDisplay()
+                    filterCards()
+                }
+                // Setze das Select-Element zurück
+                document.getElementById('categorySelect').value = ''
+            }
+
+            // Entfernt einen Chip
+            function removeCategoryChip(category) {
+                const index = window.selectedCategories.indexOf(category)
+                if (index > -1) {
+                    window.selectedCategories.splice(index, 1)
+                    // Option im Select-Menü wieder aktivieren
+                    document.querySelector('#categorySelect option[value="' + category + '"]').disabled = false
+                    updateChipsDisplay()
+                    filterCards()
+                }
+            }
+
+            // Aktualisiert die Anzeige der Chips
+            function updateChipsDisplay() {
+                const chipsContainer = document.getElementById('chipsContainer')
+                chipsContainer.innerHTML = ''
+                window.selectedCategories.forEach(function (cat) {
+                    const chip = document.createElement('span')
+                    chip.className = 'badge rounded-pill bg-primary me-2'
+                    chip.style.cursor = 'pointer'
+                    chip.style.fontSize = '1rem'
+                    chip.textContent = cat + ' ×'
+                    chip.onclick = function () {
+                        removeCategoryChip(cat)
+                    }
+                    chipsContainer.appendChild(chip)
+                })
+            }
+
+            function filterCards() {
+                const cards = document.querySelectorAll('div[data-category]')
+                cards.forEach(function (card) {
+                    // Falls keine Filterkategorien ausgewählt wurden, zeige alle Karten
+                    if (window.selectedCategories.length === 0) {
+                        card.parentNode.style.display = "block";
+                        return
+                    }
+                    // Zerlege die im data-Attribut hinterlegten Kategorien
+                    const cardCategories = card.dataset.category.split('|')
+                    // Prüfe, ob alle ausgewählten Kategorien in der Karte vorhanden sind
+                    const show = window.selectedCategories.every(function (cat) {
+                        return cardCategories.indexOf(cat) !== -1
+                    })
+                    if (show) {
+                        card.parentNode.style.display = "block";
+                    } else {
+                        card.parentNode.style.display = "none";
+                    }
+                })
+            }
+        </script>
+    </head>
+    
+    <body>
+        <nav class="navbar navbar-expand navbar-dark sticky-top" id="mainNavbar" style="background-color: #003366;">
+            <div class="container-fluid px-4"> <a class="navbar-brand" href="#">Design: Campus</a>
+
+                <button class="navbar-toggler d-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
+
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto flex-nowrap" style="white-space:nowrap;">
+                        <li class="nav-item"> <a class="nav-link" href="index.html">Akademisch</a>
+
+                        </li>
+                        <li class="nav-item"> <a class="nav-link" href="campus.html">Campus</a>
+
+                        </li>
+                        <li class="nav-item"> <a class="nav-link" href="night.html">Night</a>
+
+                        </li>
+                        <li class="nav-item"> <a class="nav-link" href="schule.html">Schule</a>
+
+                        </li>
+                        <li class="nav-item">
+                            <button class="btn nav-link" type="button" data-bs-toggle="modal" data-bs-target="#searchModal" title="Suche (Strg+K)">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.85-3.85zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z" />
+                                </svg>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <script>
+            (function () {
+                var nav = document.getElementById('mainNavbar');
+                var toggler = nav.querySelector('.navbar-toggler');
+                var collapse = document.getElementById('navbarNav');
+                var brand = nav.querySelector('.navbar-brand');
+
+                function check() {
+                    // Measure in expanded state (navbar-expand makes collapse display:flex via Bootstrap CSS)
+                    nav.classList.add('navbar-expand');
+
+                    var navWidth = nav.offsetWidth;
+                    var brandWidth = brand ? brand.offsetWidth : 0;
+                    var listWidth = collapse.scrollWidth;
+
+                    var overflows = (brandWidth + listWidth + 48) > navWidth;
+                    if (overflows) {
+                        nav.classList.remove('navbar-expand');
+                        toggler.classList.remove('d-none');
+                    } else {
+                        // navbar-expand already set above; Bootstrap CSS shows collapse as flex automatically
+                        toggler.classList.add('d-none');
+                    }
+                }
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    check();
+                    // Collapse navbar when a nav link is clicked (mobile/toggler mode)
+                    collapse.querySelectorAll('.nav-link').forEach(function (link) {
+                        link.addEventListener('click', function () {
+                            if (!toggler.classList.contains('d-none')) {
+                                var bsCollapse = bootstrap.Collapse.getOrCreateInstance(collapse);
+                                bsCollapse.hide();
+                            }
+                        });
+                    });
+                });
+                var ro = new ResizeObserver(check);
+                ro.observe(nav);
+            })();
+        </script>
+        <!-- Search Modal -->
+        <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header border-0 pb-0">
+                        <div class="input-group"> <span class="input-group-text bg-white border-end-0" style="border-radius: 8px 0 0 8px;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.415l-3.85-3.85zm-5.242 1.656a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/></svg>
+              </span>
+
+                            <input type="text" id="searchInput" class="form-control border-start-0 ps-0" placeholder="Kurse und Abschnitte durchsuchen… (Strg+K)" autocomplete="off" style="border-radius: 0 8px 8px 0; box-shadow: none;">
+                        </div>
+                        <button type="button" class="btn-close ms-2" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body pt-2 px-0">
+                        <div id="searchResults">
+                            <p class="text-muted px-3">Suchbegriff eingeben…</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .search-highlight {
+                background-color: rgba(255, 193, 7, 0.4);
+                padding: 0 1px;
+                border-radius: 2px;
+                font-weight: 600;
+            }
+            .text-truncate-multiline {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+        </style>
+        <main>
+            <div class="container-fluid" style="background-size: cover; background-image: url('https://live.staticflickr.com/7327/11125348744_2a75b75427_b.jpg'); background-position: center center; background-repeat: no-repeat;">
+                <section class="py-5 text-center container">
+                    <div class="row py-lg-5">
+                        <div class="col-lg-6 col-md-8 mx-auto">
+                             <h1 class="fw-light">LiaScript Templates</h1>
+
+                            <p class="lead text-muted">Design „Campus“ – Kurse zum Ausprobieren, Herunterladen und Einbinden ins LMS.</p>
+                            <select id="categorySelect" class="form-select" aria-label="Default select example" onchange="addCategoryChip(this.value)">
+                                <option value="" selected>Alle Themen</option>
+                                <option value="grafik">Grafik</option>
+                                <option value="klassenraum">Klassenraum</option>
+                                <option value="mathematik">Mathematik</option>
+                                <option value="musik">Musik</option>
+                            </select>
+                            <div id="chipsContainer" class="mt-3"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="album py-5 bg-light">
+                <div class="container">
+                    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-xl-3 g-3">
+                        <div class='col'>
+                            <div class="card shadow-sm m-1" style="height: 100%" data-category="musik">
+                                <div class="card-img-top" style="background-size: cover; height: 175px; background-image: url('https://raw.githubusercontent.com/LiaTemplates/ABCjs/main/logo.png'); background-position: center center; background-repeat: no-repeat;"></div>
+                                <div class="card-body" style="transform: rotate(0);"> <a href="https://liascript.github.io/course/?https://raw.githubusercontent.com/LiaTemplates/ABCjs/main/README.md" target="_blank" class="link-dark stretched-link">
+            <h5 class="card-title">ABCjs - Template</h5>
+        </a>
+
+                                    <p class="card-text">This document provides a collection of LiaScript macros that can be to write beautiful music notes with the ABC notation and also to play this music aloud.</p>
+                                    <p><span style="display: inline; white-space: break-spaces;" class="badge rounded-pill bg-light text-dark">Musik</span>
+
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="dropdown"> <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+      Herunterladen
+    </a>
+
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="">
+                                            <li><a class="dropdown-item btn-sm" target="_blank" href="assets/pdf/30b52849.pdf">PDF</a>
+
+                                            </li>
+                                            <li><a class="dropdown-item btn-sm" href="assets/scorm12/30b52849.zip">SCORM 1.2</a>
+
+                                            </li>
+                                            <li><a class="dropdown-item btn-sm" href="assets/scorm2004/30b52849.zip">SCORM 2004</a>
+
+                                            </li>
+                                            <li><a class="dropdown-item btn-sm" href="assets/ims/30b52849.zip">IMS Content Packaging</a>
+
+                                            </li>
+                                            <li><a class="dropdown-item btn-sm" href="assets/epub/30b52849.epub">EPUB</a>
+
+                                            </li>
+                                            <li><a class="dropdown-item btn-sm" href="assets/docx/30b52849.docx">DOCX</a>
+
+                                            </li>
+                                            <li><a class="dropdown-item btn-sm" href="assets/xapi/30b52849.zip">xAPI-Paket</a>
+
+                                            </li>
+                                            <li><a class="dropdown-item btn-sm" href="assets/h5p/30b52849.h5p">H5P-Paket</a>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class='col'>
+                            <div class="card shadow-sm m-1" style="height: 100%" data-category="mathematik">
+                                <div class="card-img-top" style="background-size: cover; height: 175px; background-image: url('https://live.staticflickr.com/7327/11125348744_2a75b75427_b.jpg'); background-position: center center; background-repeat: no-repeat;"></div>
+                                <div class="card-body" style="transform: rotate(0);"> <a href="https://liascript.github.io/course/?https://raw.githubusercontent.com/LiaTemplates/Algebrite/master/README.md" target="_blank" class="link-dark stretched-link">
+            <h5 class="card-title">Algebrite - Template</h5>
+        </a>
+
+                                    <p class="card-text">Template for the Algebrite JavaScript Computer-Algebra-System (CAS).</p>
+                                    <p><span style="display: inline; white-space: break-spaces;" class="badge rounded-pill bg-light text-dark">Mathematik</span>
+
+                                    </p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="dropdown"> <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+      Herunterladen
+    </a>
+
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="">
+                                            <li><a class="dropdown-item btn-sm" target="_blank" href="assets/pdf/02811fb40.pdf">PDF</a>
+
+                                            </li>
+                                            <li><a class="dropdown-item btn-sm" href="assets/scorm12/02811fb40.zip">SCORM 1.2</a>
+
+                                            </li>
+                                            <li><a class="dropdown-item btn-sm" href="assets/scorm2004/02811fb40.zip">SCORM 2004</a>
+
+                                            </li>
+                                            <li><a class="dropdown-item btn-sm" href="assets/ims/02811fb40.zip">IMS Content Packaging</a>
+
+                                            </li>
+                                            <li><a class="dropdown-item btn-sm" href="assets/epub/02811fb40.epub">EPUB</a>
+
+                                            </li>
+                                            <li><a class="dropdown-item btn-sm" href="assets/docx/02811fb40.docx">DOCX</a>
+
+                                            </li>
+                                            <li><a class="dropdown-item btn-sm" href="assets/xapi/02811fb40.zip">xAPI-Paket</a>
+
+                                            </li>
+                                            <li><a class="dropdown-item btn-sm" href="assets/h5p/02811fb40.h5p">H5P-Paket</a>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">Zusammenarbeit & Grafik</div>
+                                <div class="card-body">
+                                    <p class="card-text">Templates für gemeinsames Arbeiten und Geometrie</p>
+                                    <div class="row">
+                                        <div class='col-sm-6 col-md-4 col-lg-3 mb-3'>
+                                            <div class="card shadow-sm m-1" style="height: 100%" data-category="mathematik|grafik">
+                                                <div class="card-img-top" style="background-size: cover; height: 175px; background-image: url('https://raw.githubusercontent.com/LiaTemplates/JSXGraph/main/logo.gif'); background-position: center center; background-repeat: no-repeat;"></div>
+                                                <div class="card-body" style="transform: rotate(0);"> <a href="https://liascript.github.io/course/?https://raw.githubusercontent.com/LiaTemplates/JSXGraph/main/README.md" target="_blank" class="link-dark stretched-link">
+            <h6 class="card-title">JSXGraph</h6>
+        </a>
+
+                                                    <p class="card-text"><small>This template allows you to create JSXGraph graphs in LiaScript.</small>
+
+                                                    </p>
+                                                    <p><span style="display: inline; white-space: break-spaces;" class="badge rounded-pill bg-light text-dark">Mathematik</span><span style="display: inline; white-space: break-spaces;" class="badge rounded-pill bg-light text-dark">Grafik</span>
+
+                                                    </p>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="dropdown"> <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+      Herunterladen
+    </a>
+
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="">
+                                                            <li><a class="dropdown-item btn-sm" target="_blank" href="assets/pdf/2a440a8d.pdf">PDF</a>
+
+                                                            </li>
+                                                            <li><a class="dropdown-item btn-sm" href="assets/scorm12/2a440a8d.zip">SCORM 1.2</a>
+
+                                                            </li>
+                                                            <li><a class="dropdown-item btn-sm" href="assets/scorm2004/2a440a8d.zip">SCORM 2004</a>
+
+                                                            </li>
+                                                            <li><a class="dropdown-item btn-sm" href="assets/ims/2a440a8d.zip">IMS Content Packaging</a>
+
+                                                            </li>
+                                                            <li><a class="dropdown-item btn-sm" href="assets/epub/2a440a8d.epub">EPUB</a>
+
+                                                            </li>
+                                                            <li><a class="dropdown-item btn-sm" href="assets/docx/2a440a8d.docx">DOCX</a>
+
+                                                            </li>
+                                                            <li><a class="dropdown-item btn-sm" href="assets/xapi/2a440a8d.zip">xAPI-Paket</a>
+
+                                                            </li>
+                                                            <li><a class="dropdown-item btn-sm" href="assets/h5p/2a440a8d.h5p">H5P-Paket</a>
+
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class='col-sm-6 col-md-4 col-lg-3 mb-3'>
+                                            <div class="card shadow-sm m-1" style="height: 100%" data-category="klassenraum">
+                                                <div class="card-body" style="transform: rotate(0);"> <a href="https://liascript.github.io/course/?https://raw.githubusercontent.com/LiaTemplates/CollaborativeDrawing/main/README.md" target="_blank" class="link-dark stretched-link">
+            <h6 class="card-title">Collaborative Drawing</h6>
+        </a>
+
+                                                    <p class="card-text"><small>Collaborative drawing on a shared canvas. Everyone draws on an own layer, which is kept locally and joins the classroom when you connect. The classroom mode decides who sees which layer.</small>
+
+                                                    </p>
+                                                    <p><span style="display: inline; white-space: break-spaces;" class="badge rounded-pill bg-light text-dark">Klassenraum</span>
+
+                                                    </p>
+                                                </div>
+                                                <div class="card-footer">
+                                                    <div class="dropdown"> <a class="btn btn-secondary btn-sm dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+      Herunterladen
+    </a>
+
+                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="">
+                                                            <li><a class="dropdown-item btn-sm" target="_blank" href="assets/pdf/78d34f75.pdf">PDF</a>
+
+                                                            </li>
+                                                            <li><a class="dropdown-item btn-sm" href="assets/scorm12/78d34f75.zip">SCORM 1.2</a>
+
+                                                            </li>
+                                                            <li><a class="dropdown-item btn-sm" href="assets/scorm2004/78d34f75.zip">SCORM 2004</a>
+
+                                                            </li>
+                                                            <li><a class="dropdown-item btn-sm" href="assets/ims/78d34f75.zip">IMS Content Packaging</a>
+
+                                                            </li>
+                                                            <li><a class="dropdown-item btn-sm" href="assets/epub/78d34f75.epub">EPUB</a>
+
+                                                            </li>
+                                                            <li><a class="dropdown-item btn-sm" href="assets/docx/78d34f75.docx">DOCX</a>
+
+                                                            </li>
+                                                            <li><a class="dropdown-item btn-sm" href="assets/xapi/78d34f75.zip">xAPI-Paket</a>
+
+                                                            </li>
+                                                            <li><a class="dropdown-item btn-sm" href="assets/h5p/78d34f75.h5p">H5P-Paket</a>
+
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <footer class="text-muted py-3">
+            <div class="container">
+                <p class="float-end"> <a href="#" aria-label="Nach oben">↑ nach oben</a>
+
+                </p>
+                <p>Testseite für den liascript-exporter-Skill · Erstellt mit <a href="https://liascript.github.io">LiaScript</a>
+
+                </p>
+            </div>
+        </footer>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/minisearch@7/dist/umd/index.min.js"></script>
+        <script>
+            // Compact index: [{t, g, i, u, s: [[sectionTitle, sectionContent], ...]}]
+            // Denormalize into flat records for MiniSearch
+            var SEARCH_INDEX = JSON.parse("[{\"t\":\"ABCjs - Template\",\"g\":[\"Musik\"],\"i\":\"https://raw.githubusercontent.com/LiaTemplates/ABCjs/main/logo.png\",\"u\":\"https://LiaScript.github.io/course/?https://raw.githubusercontent.com/LiaTemplates/ABCjs/main/README.md\",\"s\":[[\"ABCjs - Template\",\"This document defines some basic macros for that allow you to write music notes with the ABC-notation. To transform this into nicely rendered music notes an to play the music online as well, this plugin uses the JavaScript library abcjs. This plugin allows you to use ABC music in two ways, only for showing and playing, or to write and interpret ABC interactively with an editor. Try it on LiaScript: https://liascript.github.io/course/?https://raw.githubusercontent.com/liaTemplates/ABCjs/main/README.md See the project on Github: https://github.com/liaTemplates/ABCjs There are three ways to use this template. The easiest way is to use the statement and the url of the raw text-file of the master branch or any other branch or version. But you can also copy the required functionality directly into the header of your Markdown document, see therefor the last slide. And of course, you could also clone this project and change it, as you wish. 1. Load the macros via or use this specific version and you course will be stable: 2. Copy the definitions into your Project 3. Clone this repository on GitHub\"],[\"@ABCJS.render\",\"Display the ABC defined music with default options, which will render them as musical notes and add a the possibility to play the music aloud. abc X: 1 T: Shche ne Vmerla Ukrayiny ni Slava, ni volya T: Ukrainian National Anthem C: trad. R: march S: https://www.8notes.com/scores/34640.asp Z: 2022 John Chambers M: C L: 1/8 K: F [|\\\\ \\\"F\\\"[A3F3][AF] ([AF][GE][AF])[BG] | [c3A3][BG] \\\"A7\\\"[A2F2][G2E2^C2] | \\\"Dm\\\"[F2D2][A2F2] \\\"A\\\"[E2^C2][A2C2] | \\\"Dm\\\"[D3D3][E^C] [F2D2]\\\"C\\\"[G2E2] | \\\"F\\\"[A3F3][AF] ([AF][GE][AF])[BG] | [c3A3][BG] \\\"A7\\\"[A2F2][G2E2^C2] | \\\"Dm\\\"[F2D2][A2F2] \\\"A\\\"[E2^C2][A2C2] | \\\"Dm\\\"[D4D4] D2z2 | \\\"A\\\"[E2^C2][E2C2] ([AC][GE][FD])[EC] | (\\\"Dm\\\"[DD3-]EF)[DD] \\\"A\\\"[E2^C2][E2C2] | \\\"Dm\\\"[F2D2][F2D2] \\\"C\\\"[G2E2][G2E2] | \\\"F\\\"[A4F4] [A2F2]z2 | \\\"A\\\"[E2^C2][E2C2] ([AC][GE][FD])[EC] | (\\\"Dm\\\"[DD3-]EF)[DD] \\\"A\\\"[E2^C2][E2C2] | \\\"Dm\\\"[F2D2][A2F2] \\\"A\\\"[E2^C2][A2C2] | \\\"Dm\\\"[D3D3][E^C] ([FD][GE][AF])[BG] | |:\\\\ \\\"F\\\"[c3A3][=B^G] [c2A2][A2F2] | \\\"C\\\"[G2E2][G2E2] ([cE][BG]\\\"^A7/C#\\\"[AF])[GE] | \\\"Dm\\\"[F2D2][F2D2] \\\"C\\\"[G2E2][G2C2] | (\\\"F\\\"[A3F3][GE][A2F2])\\\"C7\\\"[B2G2] | \\\"F\\\"[c3A3][=B^G] [c2A2][A2F2] | \\\"C\\\"[G2E2][G2E2] ([cE][BG]\\\"^A7/C#\\\"[AF])[GE] | \\\"Dm\\\"[F2D2][A2F2] \\\"A\\\"[E2^C2][A2C2] | \\\"Dm\\\"[D4D4] [D2D2]z2 :| `\"],[\"@ABCJS.renderWith\",\"Use the render with option to change the default settings. A list of all possible parameters is defined in section Options. Additionally it is possible to set these parameters as comments within the ABC-code, as it is demonstrated here. abc X: 1 T: Cooley's M: 4/4 L: 1/8 K: Emin |:D2|\\\"Em\\\"EBBA B2 EB|~B2 AB dBAG|\\\"D\\\"FDAD BDAD|FDAD dAFD| \\\"Em\\\"EBBA B2 EB|B2 AB defg|\\\"D\\\"afe^c dBAF|\\\"Em\\\"DEFD E2:| |:gf|\\\"Em\\\"eB B2 efge|eB B2 gedB|\\\"D\\\"A2 FA DAFA|A2 FA defg| \\\"Em\\\"eB B2 eBgB|eB B2 defg|\\\"D\\\"afe^c dBAF|\\\"Em\\\"DEFD E2:| `\"],[\"@ABCJS.eval\",\"Next to just showing the notes, it is also possible to directly edit music with the LiaScript editor. Alls states and versions will be preserved. Simply add the macro to the end of the code-block. This will run with the default settings and print out the result within the console. The code-example contains a list of all settings that can be changed by the user, this will overwrite the default settings and gives you more control over your composition.\"],[\"@ABCJS.evalWith\",\"This is similar to the version an allows you to configure the output more precisely. Additionally it is also possible, to overwrite these settings within the comments, as shown in the previous section.\"],[\"Options\",\"| option | Description | | | | | | Display audio settings, by default true. | | | Start playing immediately when the site/abc becomes visible (by default disabled) | | | The \\\"midi channel\\\" to use. This isn't particularly useful except that specifying channel 10 means to use the percussion sounds. | | | Combinations of ABCJS which shows some visual debug information. | | | Depict the notes, by default this is enabled, set it to false to hide them and to display only the \\\"playback\\\". | | | A number for the midi program (aka \\\"instrument\\\") to use, if not specified in ABC string. | | | Used by default, if you set this to false, then there will be a scrollbar displayed on small screens. | | | Add tablature options as defined here. | | | If true, play the metronome and accompaniment; do the animation callbacks, but don't play any melody lines. | | | If true, then don't turn the guitar chord symbols into sound. (But do play the metronome if there is one.) | | | Use pan to mimic stereo sound (by default set to false). |\"],[\"ABC Tutorial\",\"You can search https://abcnotation.com for a vast amount of songs and resources. Additionally, it might be helpful to have a look at the following videos: !?How to get started with abc notaion !?How to understand abc notation ... the basics !?How to understand abc notation ... next steps !?How to become an EasyABC virtuoso ... tips & tricks !?How to include lyrics in abc notation !?How to write abc notation for multiple voices (polyphony)\"],[\"Implementation\",\"\"]]},{\"t\":\"Algebrite - Template\",\"g\":[\"Mathematik\"],\"i\":\"https://live.staticflickr.com/7327/11125348744_2a75b75427_b.jpg\",\"u\":\"https://LiaScript.github.io/course/?https://raw.githubusercontent.com/LiaTemplates/Algebrite/master/README.md\",\"s\":[[\"Algebrite - Template\",\"Template for the Algebrite JavaScript Computer-Algebra-System (CAS) https://algebrite.org to be used in LiaScript. It makes Markdown code-blocks executable, renders results as pretty formulas and lets you check quiz answers mathematically, so , , and are all accepted as the same answer. Try it on LiaScript: https://liascript.github.io/course/?https://raw.githubusercontent.com/liaTemplates/algebrite/master/README.md See the project on Github: https://github.com/liaTemplates/algebrite Like with other LiaScript templates, there are three ways to integrate Algebrite, but the easiest way is to import it. 1. Load the latest macros via (this might cause breaking changes) or the current version 0.7.1 via: 2. Copy the definitions into your Project, see Sec. Implementation 3. Clone this repository on GitHub Overview of all macros: | Macro | Purpose | | | | | | run a code-block and show the plain result | | | run every line of a code-block and show it as a numbered formula | | | run a code-block, then keep a terminal open for further input | | | quiz: answer must be mathematically equal to the solution | | | quiz: answer may differ from the solution by the tolerance | | | quiz: answer must lie within and | | | quiz: answer must be an equivalent equation | All macros take an optional last parameter or , see Sec. Units in Quizzes.\"],[\"More Information\",\"Algebrite is... lightweight: made to be simple to comprehend and extend, it only depends on BigInteger.js by Peter Olson. self-contained: doesn't need connection to servers or another \\\"backend\\\" CAS a library: beyond use as an interactive tool, Algebrite can be embedded in your applications and extended with custom functions. free: MIT-Licenced Function reference: http://algebrite.org/docs/latest-stable/reference.html\"],[\"@Algebrite.eval\",\"Attach directly below a code-block to make it executable. Every line is evaluated in order and its result is shown as plain text, everything after or is a comment. These examples are taken from the website http://algebrite.org, double-click onto the listing to edit it. The following example might take a few seconds ...\"],[\"Pretty Output with pretty(1)\",\"By default, prints results as plain text. After , every following result is rendered as a formula, until switches back. The setting applies to the rest of the page, similar to , and it also works in . is the same as with always on. Results and charts appear in the order of the lines, and errors are shown in red.\"],[\"@Algebrite.pretty\",\"works like with always on: every result is rendered as a LaTeX formula, numbered by its line. Errors are shown in red. Maxima (x + 1)^2 / 2 sqrt(8) x integral(x^2, x) d(sin(x) x, x) ` Result:\"],[\"@Algebrite.repl\",\"runs the code block like , but then keeps a terminal open. Every line typed into it is evaluated with the same variables, so definitions from the code block can be used interactively. Try , , or .\"],[\"Quizzes\",\"All macros are attached below a LiaScript text-input quiz . Instead of comparing strings, the answer is handed to Algebrite and compared mathematically with the solution. That means, learners do not have to guess the \\\"correct\\\" notation. What learners can type into a quiz field: | Input style | Examples | | | | | Algebrite syntax | , , , , | | LaTeX syntax | , , , | | Decimal comma | is read as | | Percentages | is read as | LaTeX and Algebrite syntax can be used side by side, the template detects LaTeX automatically as soon as the input contains a command like , or , and converts it before the comparison. The solution in the macro parameter itself has to be written in Algebrite syntax. Notes: LaTeX is only detected via commands (, , , ...). Plain braces like without any command are not converted, use instead. Multiple solutions are passed as a list, separated by semicolons: . Commas are not used as separators, since they are interpreted as decimal commas. * Empty fields are always counted as wrong.\"],[\"Units in Quizzes\",\"With units switched on, symbols like , , or are treated as units, so and are the same answer. An answer with a wrong or missing unit, like or instead of , is counted as wrong. | Macro | Units by default | Switch with | | | | | | | on | | | | on | | | | off | | | | off | | Units are off for and , because formulas often use variables that are also unit symbols: In , would be read as farad, as metre and as year, and the correct answer would be rejected. Only switch units on there, if the solution is a quantity like .\"],[\"@Algebrite.check\",\"accepts every answer that is mathematically equal to the solution. Try out different results like , , or . 6 + 6 = The same works with symbolic expressions. Try different forms of , like , or . If a quiz contains multiple input fields, pass a list of solutions separated by semicolons, one per field and in the same order. Try or for the first field. $x=\\\\;$ $\\\\;\\\\;\\\\wedge\\\\;\\\\; y=$ $\\\\;\\\\;\\\\wedge\\\\;\\\\; z=$ For answers with units, add . Try or .\"],[\"@Algebrite.check2\",\"If a result might be rounded, use . An answer is correct if it differs from the solution by at most the tolerance. Try , or . For multiple input fields, pass a list of solutions and a list of tolerances. If only one tolerance is given, it is used for all fields. $a=$ \\\\ $b=$ \\\\ $c=$ Units are switched on by default, so solution and tolerance can have different units. Try or .\"],[\"@Algebrite.check_margin\",\"accepts every answer within a range, both bounds included. This is useful for measurements or estimations. Units are switched on by default, try , or . ->\"],[\"@Algebrite.check_expression\",\"checks equations. Both sides are moved to one side and compared, so , , or are all accepted. If no is given, is assumed. Equations that were multiplied by a factor, like , are not accepted.\"],[\"CAS - Tutorial\",\"A guided tour through Algebrite's built-in function library, grouped by topic. Every example below is a live code block using (renders the result as a formula) or (renders the result as plain text, or as a formula after ) — double-click any block to edit it and try your own expressions. A complete alphabetical reference of every function follows at the end.\"],[\"Comments\",\"Everything after or up to the end of the line is a comment and is ignored by Algebrite. A comment can take up a whole line or follow an expression, and the examples in this tutorial use comments to explain each line. There is no block comment, and is not a comment but a syntax error. Because starts a comment, a double minus cuts off the rest of the line. is read as , so write instead. This also applies to answers typed into a quiz.\"],[\"1. Arithmetic & Simplification\",\"| Function | Description | | | Sum of two or more terms | | | Product of two or more factors | | | raised to the power , same as | | | General purpose simplification | | | Combines terms over a common denominator | | | Multiplies out products and powers | | | Factors a polynomial or integer | | | Factors common terms out of a sum (the reverse of ) | | | Numeric (floating point) evaluation | | , | Smallest / largest argument | | , , | Logarithm to base , 10 or 2 | | , , | Square, cube and -th root | | / | Partial fraction decomposition of in | and stay unevaluated when the order of their arguments cannot be decided. is exact when is a power of , and keeps repeated factors such as in factored form.\"],[\"2. Trigonometric & Hyperbolic Functions\",\"| Function | Description | | , , | Sine, cosine, tangent | | , , | Inverse sine, cosine, tangent | | , , | Hyperbolic sine, cosine, tangent | | , , | Inverse hyperbolic sine, cosine, tangent | | , , | Secant, cosecant, cotangent | | , , | Inverse secant, cosecant, cotangent | | , , | Hyperbolic secant, cosecant, cotangent | | , , | Inverse hyperbolic secant, cosecant, cotangent | | | Rewrites trig/hyperbolic functions in exponential form | | , | / written directly in exponential form | Secant, cosecant and cotangent are rewritten into the basic functions, so is shown as . Derivatives and numeric values therefore work right away. is not covered and stops with a division by zero.\"],[\"3. Calculus\",\"| Function | Description | | | -th derivative of with respect to (default ) | | | Indefinite integral of with respect to | | | Definite integral of over from to | | | Limit of as approaches , see section 3.1 | | | Taylor series of around , up to degree | | | Sum of over from to , see section 3.2 | | | Product of over from to |\"],[\"3.1 Limits & Infinity\",\"| Function | Description | | | Symbolic infinity, shown as $\\\\infty$ | | | Two-sided limit, the result may be or | | | Limit at infinity, likewise at | | | Limit from the right, for the limit from the left | Limits can be infinite, can be taken at infinity, and can be one-sided. Functions with jumps, such as , and , are handled on each side separately. Arithmetic with absorbs finite numbers. Terms with an unknown symbol are left alone, because that symbol could itself be infinite. Indeterminate forms, and limits that do not exist, stop with a message instead of returning a wrong value:\"],[\"3.2 Sums in Closed Form\",\"With a symbolic bound, returns a formula when every term is polynomial or geometric in the index. The result is in expanded form, and turns it into the familiar textbook form. Any other sum stays unevaluated.\"],[\"4. Linear Algebra & Tensors\",\"| Function | Description | | | Determinant of a square matrix | | | Adjugate (classical adjoint) of a square matrix | | | Inverse of a square matrix | | | Transpose of a matrix/tensor | | / | Matrix (dot) product — is an alias for | | | Outer product of two vectors | | | Sum over repeated indices (trace, for a matrix) | | , | Number of axes (2 for every matrix) / the size of each axis | | , | &times; identity matrix | | | Sum of the diagonal | | | Characteristic polynomial | | | Reduced row echelon form | | | Basis of the null space, one vector per row | | | Rank of a matrix, the number of pivots | | | &times; Hilbert matrix | | , , | Eigenvalues / eigenvectors of a symmetric matrix | Row reduction works on any matrix, square or not. Use for the rank in the linear algebra sense, since counts the axes of a tensor. When the null space contains only the zero vector, returns that vector. The eigenvalues of a small matrix follow exactly from its characteristic polynomial.\"],[\"5. Polynomials & Number Theory\",\"| Function | Description | | | Factors polynomial over | | , | Exact / numeric roots of polynomial | | | Coefficient of in polynomial | | , | Degree of in / its leading coefficient | | , | Greatest common divisor / least common multiple | | / | Binomial coefficient (the two names are equivalent) | | | | | , , | Primality test / the -th prime / all divisors of |\"],[\"6. Complex Numbers & Special Functions\",\"| Function | Description | | , | Real / imaginary part of a complex number | | | Complex conjugate | | , | Argument (angle) / modulus of a complex number | | , | Rewrites in polar ( form) / rectangular () form | | , | Error function and its complement | | | Gamma function | | , | Bessel functions of the first / second kind | | | Dirac delta function | | | Heaviside step function, at | | , , | Classical orthogonal polynomials of degree |\"],[\"7. Solving Equations\",\"| Function | Description | | | Solves the polynomial equation for | | | Solves a system of linear equations | A single equation must be a polynomial in one variable. A system must be linear, with as many equations as variables. Equations are written as expressions equal to zero or with , because a single would be an assignment. The solution of a system lists the values in the order of the variables: Systems without a unique solution, and nonlinear systems, stop with a message:\"],[\"8. Logic, Comparison, Control Flow & Patterns\",\"| Function | Description | | , , | Logical AND / OR / NOT, or | | , , , , | / comparisons: equal, greater/less (than or equal) | | | Returns if is true, otherwise | | | Evaluates repeatedly while runs from to | | | Evaluates a sequence of expressions, returns the last one | | | Substitutes for in | | | Defines a rewrite rule, applied whenever runs | | | Removes all user-defined patterns | | , | Removes one binding / all bindings, patterns and settings | 's first argument is the loop body, not the loop variable — the example below sums into . Wildcards in a template end with an underscore, e.g. .\"],[\"9. Units & Physical Quantities\",\"| Function | Description | | | Creates a physical quantity with a unit | | | Converts a quantity to another (compatible) unit | | | SI base-unit dimension vector of a quantity | | | Toggles whether bare symbols like , , are treated as units | works regardless of the setting; arithmetic on quantities enforces dimensional consistency (adding metres and kilograms is an error).\"],[\"10. Output & Utility Functions\",\"| Function | Description | | , | Numerator / denominator of a rational expression | | , , | Rounds to the nearest / next higher / next lower integer | | | Remainder of divided by | | | Sign of (, or ) | | , , | Prints in default / traditional math / fully explicit notation | | | Renders an expression as 2D ASCII art (fractions, exponents) | | | Renders an expression as a LaTeX string — this is what powers | and show the same expression in two different notations — one for reading, one for re-parsing:\"],[\"11. Plotting with draw\",\"plots expressions as an interactive chart into the console of the code block. It returns nothing, so it can be mixed freely with other expressions. | Call | Description | | | Plots over from to | | | Plots over the variable | | | Plots over from to , the limits may be symbolic | | | Several curves in one chart, with a legend | | | Styles the curve, see the tables below | | | One option string per curve |\"],[\"11.1 Line Style\",\"Options are words in a string, separated by spaces. A word must not contain a space itself: write , not . | Option | Description | | , , , ... | Line color, any CSS color name or hex code | | , , | Line type (default ) | | | Line width in pixels (default ) | Straight lines that are functions of , such as a constant, a tangent or a secant, are simply drawn as another curve:\"],[\"11.2 Filled Areas\",\"| Option | Description | | | Fills the area between the curve and the x-axis | | | Fills only between and , the limits may be symbolic | A filled interval visualizes a definite integral or a probability:\"],[\"11.3 Points and Lines\",\"| Option | Description | | | Point on the curve at | | | Point at | | | Vertical dashed line at | | | Line segment from to | These options can be repeated and take the color of their curve. The values may be symbolic, but they must not contain a comma: works, does not.\"],[\"11.4 Axis Range and Poles\",\"| Option | Description | | , | Limits the visible y-range, the limits may be symbolic | At poles, the curve is interrupted instead of connected by a vertical line. Without /, the huge values next to a pole squeeze the rest of the curve, so it is best to set the y-range there:\"],[\"Function Index (A&ndash;Z)\",\"Every function available in Algebrite expressions, alphabetically. Functions defined as formulas over other functions, such as or , work in expressions but are not methods of the JavaScript object. A few are reserved for future use and currently do nothing (, ); is experimental and may misbehave. | Function | Description | | | Absolute value / complex modulus | | | Sum of two or more terms | | | Adjugate of a square matrix | | | Logical AND | | | Partial fraction decomposition | | | Approximates a float as a rational number | | | Inverse cosine | | | Inverse hyperbolic cosine | | | Inverse cotangent | | | Inverse hyperbolic cotangent | | | Inverse cosecant | | | Inverse hyperbolic cosecant | | | Inverse secant | | | Inverse hyperbolic secant | | | Inverse sine | | | Inverse hyperbolic sine | | | Inverse tangent | | | Inverse hyperbolic tangent | | | Argument (angle) of a complex number | | | Top-level arguments of an expression as a vector | | | Bessel function of the first kind | | | Bessel function of the second kind | | | Current value bound to a symbol | | | Binomial coefficient | | | Cube root | | | Rounds up to the nearest integer | | | Characteristic polynomial of a matrix | | | Evaluates a relational expression to / | | | Alias for | | | Rewrites trig/hyperbolic functions in exponential form | | | Removes the binding of a symbol | | | Clears all bindings, patterns and settings | | | Removes all user-defined patterns | | | Converts a number to (\\\"clock\\\") form | | | Coefficient of in polynomial | | | Cofactor of at row , column | | | Factors common terms out of a sum | | | Complex conjugate | | | Sum over repeated tensor indices | | | Converts a physical quantity to another unit | | | Cosine | | | Hyperbolic cosine | | | Cotangent | | | Hyperbolic cotangent | | | Cosecant | | | Hyperbolic cosecant | | | Polynomial decomposition (experimental) | | | Definite integral | | | Degree of polynomial in | | | Denominator of a rational expression | | | Determinant of a square matrix | | | -th derivative of | | | Size of the -th axis of a tensor | | | SI dimension vector of a quantity | | | Dirac delta function | | | All divisors of an integer | | | Evaluates a sequence, returns the last result | | | Alias for | | | Plots expressions as a chart, see section 11 | | | Reserved, not implemented | | | Eigenvalues and eigenvectors of a symmetric matrix | | | Eigenvalues of a symmetric matrix | | | Eigenvectors of a symmetric matrix | | | Functional form of assignment, | | | Error function | | | Complementary error function | | | Evaluates an expression, optionally substituting first | | | Exponential function | | | Multiplies out products and powers | | | in exponential form | | | in exponential form | | | Factors a polynomial or integer | | | | | | Factors polynomial over | | | Removes terms containing , or zeroes matching tensor entries | | | Numeric (floating point) evaluation | | | Rounds down to the nearest integer | | | Repeats while runs from to | | | Gamma function | | | Greatest common divisor | | | Heaviside step function | | | Physicists' Hermite polynomial | | | &times; Hilbert matrix | | | &times; identity matrix, same as | | | Imaginary part of a complex number | | | Accesses a component of a tensor by index | | | Symbolic infinity | | | Matrix / dot product | | | Indefinite integral | | | Inverse of a square matrix | | | Advanced special function, rarely needed directly | | | if is an integer, else | | | if is prime, else | | | Laguerre polynomial | | | Least common multiple | | | Leading coefficient of polynomial | | | Legendre polynomial | | | Limit, also at and one-sided | | | Natural logarithm, or logarithm to base | | | Logarithm to base 10 | | | Logarithm to base 2 | | | Rank of a matrix | | | Largest argument | | | Smallest argument | | | Remainder of divided by | | | Product of two or more factors | | | Logical negation | | | All numeric (real and complex) roots of | | | Basis of the null space of a matrix | | | if is a number, else | | | Numerator of a rational expression | | | Marks a symbol as an operator (advanced) | | | Logical OR | | | Outer product of two vectors | | | Alias for | | | Defines a rewrite rule used by | | | Lists all currently defined patterns | | | Rewrites a complex number in polar form | | | | | | The -th prime number | | | Prints one or more expressions | | | Renders an expression as 2D ASCII art | | | Prints in fully explicit (\\\"computer\\\") notation | | | Renders an expression as a LaTeX string | | | Prints a list/tensor entry by entry | | | Prints in traditional human-readable notation | | | Product of over from to | | | Creates a physical quantity with a unit | | | Returns unevaluated | | | Quotient of divided by | | | Number of axes of a tensor, see for matrices | | | Combines terms over a common denominator | | | Real part of a complex number | | | Rewrites a complex number in rectangular form | | | -th root | | | Rational/exact roots of polynomial | | | Rounds to the nearest integer | | | Reduced row echelon form | | | Secant | | | Hyperbolic secant | | | Dimensions of a tensor, as a list | | | Sign of | | | Like , without a confirmation printout | | | General purpose simplification | | | Sine | | | Hyperbolic sine | | | Solves a polynomial equation, or a linear system given as lists | | | Square root | | | Aborts evaluation with an error message | | | Substitutes for in | | | Sum of over from to , closed form for symbolic bounds | | | Lists all currently bound symbols | | | Tangent | | | Hyperbolic tangent | | | Taylor series of around , degree | | | Returns or depending on | | | if , else | | | if , else | | | if , else | | | if , else | | | if , else | | | Sum of the diagonal of a matrix | | | Transpose of a matrix/tensor | | | &times; identity matrix | | | Toggles bare unit symbols on/off | | | Zero vector of length |\"],[\"Implementation\",\"Compared to other macros, using Algebrite is actually quite simple. The line loads the bundled Algebrite library together with the LaTeX converter, all macros are defined below. If you want to minimize loading effort in your LiaScript project, you can also copy this code and paste it into your main comment header, see the code in the raw file of this document. https://raw.githubusercontent.com/liaTemplates/algebrite/master/README.md\"]]},{\"t\":\"JSXGraph\",\"g\":[\"Mathematik\",\"Grafik\"],\"i\":\"https://raw.githubusercontent.com/LiaTemplates/JSXGraph/main/logo.gif\",\"u\":\"https://LiaScript.github.io/course/?https://raw.githubusercontent.com/LiaTemplates/JSXGraph/main/README.md\",\"s\":[[\"JSXGraph\",\"JSXGraph is a JavaScript library for interactive geometry, function plotting, charting, and data visualization in a web browser. It is widely used in educational contexts to create dynamic mathematical visualizations. For more information, visit the JSXGraph website. Try it on LiaScript: https://liascript.github.io/course/?https://raw.githubusercontent.com/liaTemplates/JSXGraph/main/README.md See the project on Github: https://github.com/liaTemplates/JSXGraph Experiment in the LiveEditor: https://liascript.github.io/LiveEditor/?/show/file/https://raw.githubusercontent.com/liaTemplates/JSXGraph/main/README.md Like with other LiaScript templates, there are three ways to integrate JSXGraph, but the easiest way is to copy the import statement into your project. For more information, see the Sec. Implementation. 1. Load the latest macros via (this might cause breaking changes) or the current version 0.0.3 via: 2. Copy the definitions into your Project 3. Clone this repository on GitHub\"],[\"@JSX.Graph\",\"This is the most common way to create JSXGraph graphs in LiaScript. It allows you to create a JSXGraph board with the default parameters. The board is created with the default bounding box and axis settings. You can use the macro to customize the board parameters. Optionally, you can also manually change the parameters of the board, therefor the board has to be named and is not newly created, but overwritten. And the element it is placed, is called or use :\"],[\"@JSX.Graph.withParams\",\"This macro allows you to create a JSXGraph board with custom parameters. You can specify the bounding box, axis visibility, and other parameters directly in the macro.\"],[\"@JSX.Script\",\"This macro allows your users to read and modify the code that is used to create the JSXGraph board. It is useful for educational purposes, where you want to show the underlying code and allow users to experiment with it. The difference is indicated by the different background color of the code block. Simply double-click onto the board, to reveal the code and modify it.\"],[\"@JSX.Eval\",\"This macro turns a code block into an executable JSXGraph code block. It is useful for quickly testing and experimenting with JSXGraph code snippets. Simply write your JSXGraph code in a code block and prefix and append .\"],[\"@JSX.Load\",\"This macro allows you to load JSXGraph code from an external file. It is useful for organizing your code and reusing it across multiple projects. Simply provide the URL of the file containing the JSXGraph code. @JSX.Load\"],[\"Implementation\",\"The LiaScript implementation of JSXGraph is based on a custom webcomponent . See the implementation in src/index.ts for more details.\"]]},{\"t\":\"Collaborative Drawing\",\"g\":[\"Klassenraum\"],\"i\":\"\",\"u\":\"https://LiaScript.github.io/course/?https://raw.githubusercontent.com/LiaTemplates/CollaborativeDrawing/main/README.md\",\"s\":[[\"Collaborative Drawing\",\"A collaborative drawing canvas for classrooms, built on the LiaScript layer API. Everyone draws on an own layer. Without a classroom you only see your own drawing, it is stored locally and is still there after a reload. As soon as you join a classroom, your layer is synchronized with all others. Try it on LiaScript: https://liascript.github.io/course/?https://raw.githubusercontent.com/LiaTemplates/CollaborativeDrawing/main/README.md Load the macros via import and set the persistence flag to true, so the drawings keep being updated while you are on another slide. This version needs LiaScript 2.5.0 or newer (). The first version, which only synchronizes drawings between connected participants (pubsub, nothing is stored), stays available as tag :\"],[\"@Collaborative.lines\",\"Draw lines with the mouse, a pen or a finger. Width and height define the resolution, the canvas always uses the full available width.\"],[\"With background image\",\"The optional third parameter is a background image. The link style is preferred, since relative paths get resolved then. @Collaborative.lines(640,320)\"],[\"@Collaborative.dots\",\"Every click or tap places a dot. Combined with a background image this can be used to mark places on a map. @Collaborative.dots(640,320)\"],[\"Tools\",\"Above every canvas there is a small toolbar. The tools change your own layer, the drawings of others stay untouched. Only the owner of a classroom can also move and erase the strokes of all others, and they see these changes on their own canvas. | Tool | What it does | | | | | ✏️ | draw lines, or place dots in | | ✋ | drag one of your strokes to another place | | 🧽 | click one of your strokes to remove it | | ↶ ↷ | undo and redo your last steps, also and on the canvas | | 🗑️ | clear your own drawing, this can be undone as well | Undo works per stroke: while you draw, the others see the line growing, when you release it becomes one stroke, which is undone as a whole. The undo history lasts until the page is reloaded, or until the owner changes your drawing, so that an undo cannot take back the owner's change.\"],[\"Who sees what?\",\"Visibility follows the classroom mode, in the same way as quiz answers. | Situation | You see | | | | | no classroom | your own layer | | classroom, Shared | all layers | | classroom, Summary | your own layer, the owner sees all layers | | classroom, Details | your own layer, the owner sees all with names | | after leaving | your own layer, including what you drew in the classroom | Every person draws in the same color and with the same emoji as in the chat, the buttons below a canvas name who drew what. A click on a name hides or shows that drawing, and switch all of them at once. This only changes your own view, for example to look at the solutions of a class one by one, and hidden drawings cannot be moved or erased.\"],[\"Implementation\",\"The whole logic lives in the block of this file. It only uses the layer part of the LiaScript classroom API. only sends what actually changed: removing the last stroke is a single delete for the others, not a copy of the whole drawing. Layer names and pubsub topics are shared by all templates of a course. That is why the name starts with the template, , and on purpose the same name lets several templates work on the same drawing. The rest of the name is built from , so it stays the same for everyone using the same version of a course. If you reorder canvases in a course, previously drawn layers are no longer found.\"]]}]");
+            var FLAT_INDEX = [];
+            var _id = 0;
+            SEARCH_INDEX.forEach(function (course) {
+                for (var n = 0; n < course.s.length; n++) {
+                    var sec = course.s[n];
+                    FLAT_INDEX.push({
+                        id: _id++,
+                        courseTitle: course.t,
+                        sectionTitle: sec[0],
+                        sectionContent: sec[1],
+                        tagsText: Array.isArray(course.g) ? course.g.join(' ') : '',
+                        tagsArr: course.g || [],
+                        image: course.i,
+                        url: course.u + '#' + (n + 1),
+                    });
+                }
+            });
+
+            var miniSearch = new MiniSearch({
+                fields: ['courseTitle', 'sectionTitle', 'sectionContent', 'tagsText'],
+                storeFields: ['courseTitle', 'sectionTitle', 'sectionContent', 'tagsArr', 'image', 'url'],
+                searchOptions: {
+                    boost: {
+                        sectionTitle: 3,
+                        courseTitle: 2,
+                        tagsText: 1.5
+                    },
+                    fuzzy: 0.2,
+                    prefix: true,
+                },
+            });
+            miniSearch.addAll(FLAT_INDEX);
+
+            function highlight(text, terms) {
+                if (!text || !terms || !terms.length) return escapeHtml(text || '');
+                var pattern = new RegExp('(' + terms.join('|') + ')', 'gi');
+                return text.split(pattern).map(function (part, i) {
+                    return (i % 2 === 1) ? '<mark class="search-highlight">' + escapeHtml(part) + '</mark>' : escapeHtml(part);
+                }).join('');
+            }
+
+            function escapeHtml(str) {
+                return String(str)
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;');
+            }
+
+            function excerpt(text, maxLen) {
+                if (!text) return '';
+                if (text.length <= maxLen) return text;
+                return text.slice(0, maxLen) + '…';
+            }
+
+            function renderResults(query) {
+                var container = document.getElementById('searchResults');
+                if (!query || query.length < 2) {
+                    container.innerHTML = '<p class="text-muted px-3">Suchbegriff eingeben…</p>';
+                    return;
+                }
+                var results = miniSearch.search(query).slice(0, 20);
+                if (!results.length) {
+                    container.innerHTML = '<p class="text-muted px-3">Keine Treffer.</p>';
+                    return;
+                }
+
+                var html = '';
+                results.forEach(function (r) {
+                    var terms = r.terms;
+
+                    var imgHtml = r.image ? '<div class="flex-shrink-0 me-3" style="width:64px;height:48px;background-image:url(&quot;' + escapeHtml(r.image) + '&quot;);background-size:cover;background-position:center;border-radius:4px;"></div>' : '';
+
+                    var tagHtml = '';
+                    if (r.tagsArr && r.tagsArr.length) {
+                        tagHtml = '<div class="mt-1">' + r.tagsArr.map(function (t) {
+                            return '<span class="badge rounded-pill bg-light text-dark me-1" style="font-size:0.7rem;">' + escapeHtml(t) + '</span>';
+                        }).join('') + '</div>';
+                    }
+
+                    html += '<a href="' + escapeHtml(r.url) + '" target="_blank" class="list-group-item list-group-item-action py-2 px-3">' +
+                        '<div class="d-flex align-items-start">' + imgHtml +
+                        '<div class="flex-grow-1 overflow-hidden">' +
+                        '<div class="d-flex align-items-baseline gap-2">' +
+                        '<div class="fw-semibold flex-shrink-0">' + highlight(r.sectionTitle, terms) + '</div>' + (r.sectionTitle !== r.courseTitle ? '<div class="text-muted small text-truncate" style="min-width:0;">(' + highlight(r.courseTitle, terms) + ')</div>' : '') +
+                        '</div>' + (r.sectionContent ? '<div class="text-muted small text-truncate-multiline">' + highlight(excerpt(r.sectionContent, 160), terms) + '</div>' : '') + tagHtml +
+                        '</div>' +
+                        '</div>' +
+                        '</a>';
+                });
+                container.innerHTML = '<div class="list-group list-group-flush">' + html + '</div>';
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                var input = document.getElementById('searchInput');
+                var modal = document.getElementById('searchModal');
+
+                input.addEventListener('input', function () {
+                    renderResults(this.value.trim());
+                });
+
+                // Ctrl+K / Cmd+K shortcut
+                document.addEventListener('keydown', function (e) {
+                    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                        e.preventDefault();
+                        var bsModal = bootstrap.Modal.getOrCreateInstance(modal);
+                        bsModal.show();
+                    }
+                    if (e.key === 'Escape') {
+                        var bsModal = bootstrap.Modal.getInstance(modal);
+                        if (bsModal) bsModal.hide();
+                    }
+                });
+
+                modal.addEventListener('shown.bs.modal', function () {
+                    input.focus();
+                    input.select();
+                });
+
+                modal.addEventListener('hidden.bs.modal', function () {
+                    input.value = '';
+                    document.getElementById('searchResults').innerHTML = '<p class="text-muted px-3">Suchbegriff eingeben…</p>';
+                });
+            });
+        </script>
+    </body>
+
+</html>
